@@ -1,8 +1,15 @@
-@software{pypsc2024,
-  author = {Vallinayagam, Muthu and Nentwich, Melanie and Zschornak, Matthias},
-  month = {12},
-  title = {{ pypsc - Linearization Routines for the Parameter Space Concep to determine crystal structures}},
-  url = {https://github.com/mvnayagam/pypsc.git},
-  version = {0.2.1},
-  year = {2024}
-}
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Vallinayagam"
+  given-names: "Muthu"
+  orcid: "https://orcid.org/0000-0002-6796-9989"
+- family-names: "Nentwich"
+  given-names: "Melanie"
+  orcid: "https://orcid.org/0000-0002-5850-4469"
+- family-names: "Zschornak"
+  given-names: "Matthias"
+title: "pypsc - Linearization Routines for the Parameter Space Concep to determine crystal structures"
+version: 0.2.1
+date-released: 2024-09-22
+url: "https://github.com/mvnayagam/pypsc"
