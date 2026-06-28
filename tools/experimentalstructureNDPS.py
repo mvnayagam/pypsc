@@ -4,24 +4,24 @@ import polytope as pc
 
 from datetime import datetime
 
-from ..lib.g_space import g, F, hsurf_F2, hsurf_g
-from ..lib.x3Dlinearization import linearnD_EPA
-from ..lib.x3Drepetition import getpolytope_EPA  #getpolytope
-from ..lib.x3Dintersection import find_intersection
-from ..lib.x3Dreadwrite import wrtcoor, wrtdata, wrtallsolution, wrttime_mc
+from psc.lib.gspacer import g, F, hsurf_F2, hsurf_g
+from psc.lib.linearizer import linearizenD_EPA_old_deltelater
+from psc.lib.tessellator import getpolytope_EPA  #getpolytope
+from psc.lib.intersector import find_intersection
+from psc.lib.solutionIO import wrtcoor, wrtdata, wrtallsolution, wrttime_mc
 
 def isosurfs_EPA(h, xexp, f, j, fname):
     n  = [] 
     if h <= 2:
         for l in range(1,h+1):
             gi = g(l, xexp, f)
-            normal, dist = linearnD_EPA(l, xexp, f, np.abs(gi))
+            normal, dist = linearizenD_EPA_old_deltelater(l, f, np.abs(gi))
             
             n.append([l, normal, dist, np.sign(gi)])
             fname.write("%3g\t%2.6f\t%2.6f\t%2.6f\t%2.6f\t%2.6f\n"%(h, normal[0],normal[1],normal[2], dist[0],dist[1]))
     else:
         gi = g(h,xexp,f)
-        normal, dist = linearnD_EPA(h, xexp, f, np.abs(gi))
+        normal, dist = linearizenD_EPA_old_deltelater(h, f, np.abs(gi))
         
         n.append([h, normal, dist, np.sign(gi)])
         fname.write("%3g\t%2.6f\t%2.6f\t%2.6f\t%2.6f\t%2.6f\n"%(h, normal[0],normal[1],normal[2], dist[0],dist[1]))
@@ -49,7 +49,8 @@ def experimentalstrucutre_EPA(ROlist:list, scatteringfactors:list = [1., 1., 1.]
     temp = np.tril(np.ones(shape=(dimension, dimension)) , 0 )
     temp = imax*np.vstack([[0]*dimension, temp])
     asym = pc.qhull(np.array(temp))
-        
+      
+    
     #---> define result folder to save results
     #fpath = os.path.join(os.getcwd(), datetime.now().strftime('MCresult-'+'%Y-%m-%d-%H%M%S'))
     fpath  = os.path.join(os.path.join(os.environ['USERPROFILE']), 'Desktop', datetime.now().strftime('MCresult-'+'%Y-%m-%d-%H%M%S')) 

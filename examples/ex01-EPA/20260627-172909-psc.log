@@ -1,0 +1,92 @@
+# ==================================================================================================== #
+    
+                #        ______     _____    _____
+                #        |  __ \   / ____|  / ____|
+                #        | |__) | | (___   | |     
+                #        |  ___/   \___ \  | |     
+                #        | |       ____) | | |____ 
+                #        |_|      |_____/   \_____|
+                
+                # Parameter Space Concept in Crystallography
+                
+# ==================================================================================================== #
+
+[solver | INFO] Created HDF5 file: tmp\pscsolver_20260627-172909-c15eca.h5
+[solver | INFO] Solver started at :  0:00:00
+[solver | INFO] Solving 3D structure
+[solver | INFO] 
+[solver | INFO] # --------------------------------------- Details of structure ---------------------------------------#
+[solver | INFO] Assumed or given reflection : [1 2 3 4]
+[solver | INFO] Structure factors: [1 1 1]
+[solver | INFO] Structure: [0.328 0.218 0.125]
+[solver | INFO] Art of framework method : intensity
+[solver | INFO] Output path: tmp
+[solver | INFO] # ---------------------------------------------------------------------------------------------------- #
+[solver | INFO] 
+[solver | INFO] Calculated intensity/amplitude:
+    1 :  0.436113
+    2 : -1.477107
+    3 : -0.279425
+    4 : -0.686126
+[choiceoforigin | INFO] COO not required g(l=1)=0.4361
+[solver | INFO] Calculated intensity/amplitude:
+    1 :  0.436113
+    2 : -1.477107
+    3 : -0.279425
+    4 : -0.686126
+[solver | INFO] 
+[solver | INFO] Starting linearizer at : 0:00:00.049742
+[solver | INFO] Linearizing reflection : 1
+[linearizer | INFO] NaN detected: 3 edgepoints missing - fallback mode
+[linearizer | INFO] checkstatus: True New dist:[0.34124 0.42982]
+[linearizer | INFO] Normal = [0.57735 0.57735 0.57735]
+[linearizer | INFO] Boundary distance = {'innerdistance': np.float64(0.3412), 'outerdistance': np.float64(0.430145)}
+[solver | INFO] ! Status : True Linearization for reflection 1 is successful. CheckLinearizer is done by distance check
+[solver | INFO] Linearizing reflection : 2
+[linearizer | INFO] for l : 2 - No edgepoints missing
+[linearizer | INFO] ! Status : True Linearization for reflection 2 is successful. CheckLinearizer is done by distance check
+[linearizer | INFO] Normal = [0.57735 0.57735 0.57735]
+[linearizer | INFO] Boundary distance = {'innerdistance': np.float64(0.09744908987976023), 'outerdistance': np.float64(0.14554899602706636)}
+[solver | WARNING] ! Status : False Linearization for reflection 2 is Failed. Use dist_new
+[solver | INFO] Linearizing reflection : 3
+[linearizer | INFO] NaN detected: 3 edgepoints missing - fallback mode
+[linearizer | INFO] checkstatus: True New dist:[0.11883 0.14987]
+[linearizer | INFO] Normal = [0.57735 0.57735 0.57735]
+[linearizer | INFO] Boundary distance = {'innerdistance': np.float64(0.118802), 'outerdistance': np.float64(0.149929)}
+[solver | WARNING] ! Status : False Linearization for reflection 3 is Failed. Use dist_new
+[solver | INFO] Linearizing reflection : 4
+[linearizer | INFO] NaN detected: 3 edgepoints missing - fallback mode
+[linearizer | INFO] checkstatus: True New dist:[0.07943 0.09809]
+[linearizer | INFO] Normal = [0.57735 0.57735 0.57735]
+[linearizer | INFO] Boundary distance = {'innerdistance': np.float64(0.079408), 'outerdistance': np.float64(0.098258)}
+[solver | WARNING] ! Status : False Linearization for reflection 4 is Failed. Use dist_new
+[solver | INFO] 
+[solver | INFO] Starting Tessellator at : 0:00:00.317381
+[solver | INFO] Tessellating for reflection : 1
+[solver | INFO] Found polytopes for reflection 1 is : 1
+[solver | INFO] Tessellating for reflection : 2
+[solver | INFO] Found polytopes for reflection 2 is : 4
+[solver | INFO] Tessellating for reflection : 3
+[solver | INFO] Found polytopes for reflection 3 is : 15
+[solver | INFO] Tessellating for reflection : 4
+[solver | INFO] Found polytopes for reflection 4 is : 26
+[solver | INFO] 
+[solver | INFO] Starting Intersector at : 0:00:00.505453
+[solver | INFO] Found 2 solution spaces at reflections 1 & 2 - s12
+[solver | INFO] Found 7 solution spaces at reflection 3 - s23
+[solver | INFO] Found 7 solution spaces at reflection 4 - s34
+[solver | INFO] 
+[solver | INFO] Starting Solution Merger at : 0:00:00.826055
+[solver | INFO] Available keys in intersection object ['s12', 's23', 's34']
+[solver | INFO] Intersection at s34 will be merged
+[solver | INFO] Components mergerged into single polytope: [[0, 1, 4, 3, 2], [5], [6]]
+[solver | INFO] Number of polytops in merged region: 3
+[solver | INFO] Number of polytops in unmerged region: 7
+[solver | INFO] 
+[solver | INFO] Starting SolutionSelector at : 0:00:00.892105
+[solutionselector | INFO] Polytope index: 0 | Inital solution (centroid of polytope): [0.3290268093165866, 0.20399806130036716, 0.14612938363367042] | Final optimized solution: [0.328 0.218 0.125] | error on structure: [0.038575840262961625, 0.041666666666669294, 0.06316715850194239] | error on intensity: 4.662236326396244e-07
+[solutionselector | INFO] Polytope index: 1 | Inital solution (centroid of polytope): [0.2506738154299913, 0.35651627235339517, 0.13592658366202848] | Final optimized solution: [0.25    0.35081 0.14366] | error on structure: [0.0010107231449869303, 0.009090721104585586, 0.009090721104585628] | error on intensity: 0.5213486056336448
+[solutionselector | INFO] Polytope index: 2 | Inital solution (centroid of polytope): [0.3565162723533952, 0.2506738154299913, 0.1359265836620284] | Final optimized solution: [0.35081 0.25    0.14366] | error on structure: [0.009090721104585642, 0.0010107231449869303, 0.009090721104585628] | error on intensity: 0.5213486056336613
+[solutionselector | INFO] Best polytope index: 0
+[solutionselector | INFO] Error: 4.662236326396244e-07
+[solutionselector | INFO] Best parameters: [0.32799997423909927, 0.21799997571815008, 0.12499997634064107] | sorted parameter: [0.32799997423909927, 0.21799997571815008, 0.12499997634064107] | given structure: None | Error on structure: [0.038575840262961625, 0.041666666666669294, 0.06316715850194239] | Error on Intensity: 4.662236326396244e-07

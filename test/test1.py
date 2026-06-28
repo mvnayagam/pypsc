@@ -3,7 +3,7 @@ warnings.filterwarnings('ignore')
 import time
 import numpy as np
 from psc.lib.g_space import g
-from psc.lib.x3DlinearizationEPA import linearizenD_EPA
+from psc.lib.x3Dlinearization import linearizenD_EPA
 from psc.lib.x3Drepetition import getpolytope_EPA  
 
 

@@ -8,9 +8,10 @@ import intvalpy as ip
 import numpy as np
 from itertools import permutations
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
-from ..lib.g_space import g, F, hsurf_g
+from psc.lib.gspacer import g, F, hsurf_g
+from psc.lib.getscatteringfactor import getf, getfs
 
-from ..lib.x3Dintersection  import find_intersection
+from psc.lib.intersector  import find_intersection
 
 
 np.set_printoptions(threshold=sys.maxsize)

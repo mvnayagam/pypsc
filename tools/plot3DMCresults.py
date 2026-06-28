@@ -7,20 +7,16 @@ from matplotlib import cm
 
 from matplotlib.cm import ScalarMappable
 
-from ..lib.g_space import g
-from ..lib.x3Dreadwrite import readh5file_v2
+from psc.lib.gspacer import g
+from psc.lib.solutionIO import readh5file_v2
+
 
 def plot3dmcresults(h:int, fpath: str):
     
     
     # ---> get back all generated coordinate NOTE: change 'h' and 'path' to your setting
     #      the path is set to Desktop\\MCres1. the script search the result in this location
-
-    #h = 9
-    #fpath = os.path.join(os.path.join(os.environ['USERPROFILE']), 'Desktop','MCres1') 
-
-    fn = os.path.join(fpath,'pnew_2.h5')
-    pair = readh5file_v2(fn)[4]   ## to get unsorted pair
+    # fn = os.path.join(fpath,'pnew_2.h5')
 
 
     # ---> get back the voume and mean volume
@@ -30,6 +26,8 @@ def plot3dmcresults(h:int, fpath: str):
 
     for ai, ls in enumerate(l):
         fn = os.path.join(fpath,'pnew_%g.h5'%(ls))
+        if ai==0:
+            pair = readh5file_v2(fn)[4]   ## to get unsorted pair
         mmean.append(readh5file_v2(fn)[1])
 
     cmap = plt.get_cmap("cool")
@@ -39,7 +37,8 @@ def plot3dmcresults(h:int, fpath: str):
     nc = 4 ; nr = int(np.ceil(len(l)/nc))
     fig, axs = plt.subplots(nr, nc, figsize=(16,8),frameon=False,constrained_layout=True, subplot_kw={'projection': '3d','aspect':'auto'})
 
-    plt.rc('xtick', labelsize=12) ; plt.rc('ytick', labelsize=12)
+    plt.rcParams['xtick.labelsize'] = 14
+    plt.rcParams['ytick.labelsize'] = 14
 
     for ai, ls in enumerate(l):
         
@@ -51,7 +50,8 @@ def plot3dmcresults(h:int, fpath: str):
         
         noofsolus=np.array(readh5file_v2(fn)[7])
             
-        axs.flat[ai].plot(0,0,0, ms= 0, marker='o', c='m',label=r'$\mathcal{l}~\leq~%g~~V~=~%1.7f$'%(ls,mmean[ai]), alpha=0)
+        #axs.flat[ai].plot(0,0,0, ms= 0, marker='o', c='m',label=r'$\mathcal{l}~\leq~%g~~V~=~%1.7f$'%(ls,mmean[ai]), alpha=0)
+        axs.flat[ai].plot(0,0,0, ms= 0, marker='o', c='m',label=r'$\mathcal{l}~\leq~%g$'%(ls), alpha=0)
         axs.flat[ai].legend(loc='upper right', frameon='False',fancybox='False', framealpha=0.0,mode='expand',
                             prop={'size':14}, bbox_to_anchor=(-0.,1.05))
         
@@ -60,7 +60,7 @@ def plot3dmcresults(h:int, fpath: str):
             
             vol_c=cmap(norm_vol( mmean[ai]),alpha=0.15)
                 
-            ROO= 1 ; f = [1., 1., 1.]
+            ROO= 1; f = [1.0]*len((pair[en])[::-1])
             if np.sign(g(ROO, np.sort(pair[en])[::-1], f))>0:
                 centero[en] = centero[en]
             else:
@@ -79,12 +79,10 @@ def plot3dmcresults(h:int, fpath: str):
             axs.flat[ai].errorbar(pair[en][0],pair[en][1],pair[en][2], yerr=ei[1], alpha=0.5, ecolor='b', elinewidth=2, fmt='none')
             axs.flat[ai].errorbar(pair[en][0],pair[en][1],pair[en][2], zerr=ei[2], alpha=0.5, ecolor='k', elinewidth=2, fmt='none')
             
-            axs.flat[ai].scatter(pair[en][0],pair[en][1],pair[en][2], s=3000*radi[en], 
-                                linewidths=2, ec='C1', fc='none', alpha=0.75)
+            axs.flat[ai].scatter(pair[en][0],pair[en][1],pair[en][2], s=3000*radi[en], linewidths=2, ec='C1', fc='none', alpha=0.75)
                     
             if ai<3:
                 axs.flat[ai].zaxis.set_ticklabels([])
-                
                 axs.flat[ai].set_xlabel(r'$z_\mathrm{1}$', fontsize=16, labelpad=10)
                 axs.flat[ai].set_ylabel(r'$z_\mathrm{2}$', fontsize=16, labelpad=10)
             if ai == 3:
@@ -105,10 +103,13 @@ def plot3dmcresults(h:int, fpath: str):
     sm_vol =  ScalarMappable(norm=norm_vol, cmap=cmap)
     sm_vol.set_array([np.min(mmean),np.max(mmean),100])
 
-    cbar_vol = fig.colorbar(sm_vol, ax=axs[:], aspect=15, shrink=0.4,panchor=(0,0.5))
+    cbar_vol = fig.colorbar(sm_vol, ax=axs[:], orientation='vertical', pad=0.075, aspect=30, shrink=1.0)
+    #cbar_vol = fig.colorbar(sm_vol, ax=axs[:], aspect=15, shrink=0.8,panchor=(0,0.5))
     cbar_vol.set_label(r'$\log~V_{\mathrm{average}}$', size=12, weight='bold', loc='center', labelpad=1.5)
-    cbar_vol.ax.tick_params(labelsize=12)
-
+    #cbar_vol.ax.tick_params(labelsize=12)
+    cbar_vol.ax.tick_params(width=1.5, length=8, which='major')
+    cbar_vol.ax.tick_params(width=1.0, length=5, which='minor')
+    cbar_vol.ax.tick_params(labelsize=16)
 
     # ---> This will remove any unused axs in the fig. 
     for i in axs.flat:
@@ -118,7 +119,7 @@ def plot3dmcresults(h:int, fpath: str):
     plt.subplots_adjust(left=0.01, right=0.785, bottom=0.10, top=1, wspace=0.05, hspace=0.075)
 
     #plt.savefig(os.path.join(os.getcwd(), 'MCres/folder1/folder2/EPA_I.pdf'), dpi=200, bbox_inches='tight')  # when want to save in some other location
-    plt.savefig(os.path.join(fpath, 'EPA_I.pdf'), dpi=250, bbox_inches='tight')   # when want to save in the some location of results directory
+    plt.savefig(os.path.join(fpath, 'MCresult.pdf'), dpi=250, bbox_inches='tight')   # when want to save in the some location of results directory
 
     plt.show()
 
